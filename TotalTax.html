@@ -74,15 +74,15 @@
         for(var i = 0; i < 240000; i++){
           if(i % 100 == 0) {
             if(i < 15000) {
-              dataarray.push([i, 0, currentTax(i), tax - currentTax(i)]);
+              dataarray.push([i, 0, currentTax(i), currentTax(i) - tax]);
             } else {
                 if(i < 100000){
                 tax = tax + 15;
                  // document.write(tax + "<br>")
-                  dataarray.push([i, tax, currentTax(i), tax - currentTax(i)]);
+                  dataarray.push([i, tax, currentTax(i), currentTax(i) - tax]);
                 } else {
                   tax = tax + 25;
-                  dataarray.push([i, tax, currentTax(i), tax - currentTax(i)]);
+                  dataarray.push([i, tax, currentTax(i), currentTax(i) - tax]);
                 }
               }
           }
