@@ -37,7 +37,7 @@
 	                         $(document).ready(function() {
 	                              var income = document.getElementById("income").value;
 	               $("#savings").html((currentTax(income).toFixed(2) - maximeTax(income).toFixed(2)).toFixed(2)).digits();
-	               $("#currentTax").html(currentTax(income).toFixed(2));
+	               $("#currentTax").html(currentTax(income).toFixed(2)).digits();
 	               $("#maximeTax").html(maximeTax(income).toFixed(2)).digits();
 	               $("#currentTax-before").html("$");
 	               $("#maximeTax-before").html("$");
