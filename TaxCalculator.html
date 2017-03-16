@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+	</script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+	</script>
+	<script src="https://www.gstatic.com/charts/loader.js" type="text/javascript">
+	</script>
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<script type="text/javascript">
+
+	         $(document).ready(function() {
+	             $.fn.digits = function(){ 
+	                   return this.each(function(){ 
+	                       $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+	                   })
+	               }
+	                $("#submit").click(function(){
+	                  fillForm();
+	                  return false;
+	                });
+	                $("#form").submit(function(){
+	                    fillForm();
+	                    return false;
+	                });
+	          });
+	        
+	          function fillForm() {
+
+	            // document.getElementById("currentTax").innerHTML = "$" + currentTax(income).toFixed(2);
+	              //document.getElementById("maximetax").innerHTML = "$" + maximeTax(income).toFixed(2);        
+	             // document.getElementById("savings").innerHTML= "$" + (currentTax(income).toFixed(2) - maximeTax(income).toFixed(2)).toFixed(2); 
+	                         $(document).ready(function() {
+	                              var income = document.getElementById("income").value;
+	               $("#savings").html((currentTax(income).toFixed(2) - maximeTax(income).toFixed(2)).toFixed(2)).digits();
+	               $("#currentTax").html(currentTax(income).toFixed(2));
+	               $("#maximeTax").html(maximeTax(income).toFixed(2)).digits();
+	               $("#currentTax-before").html("$");
+	               $("#maximeTax-before").html("$");
+	               $("#savings-before").html("$")
+	           
+	           });
+	          }
+	          function maximeTax(totalincome) {
+	            var tax = 0;
+	            var income  = totalincome - 15000;
+	            
+	            if (income < 0) {
+	              return tax;
+	            }
+	            
+	            if(income > 0) {
+	              if(income < 100000) {
+	                 tax += income * 0.15;            
+	              } else {
+	                  tax += 100000 * 0.15;
+	              }
+	            } 
+	            
+	            if(income > 100000) {
+	              tax += (income - 100000) * 0.25;
+	              }
+	              return tax;
+	          }
+
+	            
+	    
+	          function currentTax(totalincome) {
+	            var tax = 0;
+	            var income  = totalincome - 11635;
+	            
+	            if (income < 0) {
+	              return tax;
+	            }
+	            
+	            if(income > 0) {
+	              if(income < 45916) {
+	                 tax += income * 0.15;            
+	              }  else {
+	                 tax += 45916 * 0.15;
+	              }
+
+	            } 
+	            
+	            if(income > 45916) {
+	              if(income < 91831) {
+	                tax += (income - 45916) * 0.205;
+	              } else {
+	                tax += (91831-45916) * 0.205;
+	              }
+	            } 
+	            
+	            if(91831 < income) {
+	              if(income < 142353) {
+	                tax = tax +  (income - 91831) * 0.26;
+	              } else {
+	                tax += (142353 - 91831) * 0.26;
+	              }
+	            } 
+	            
+	            if (income > 142353) {
+	                if(income < 202800) {
+	                  tax = tax + (income - 142353) * 0.29;
+	                } else {
+	                  tax += (202800 - 142353) * 0.29;
+	                }
+	            } 
+	            
+	            if(income > 202800) {
+	             tax = tax + (income - 202800) * 0.33; 
+	            }
+	            
+	            return tax;
+	            
+	          }
+
+	</script>
+	<style>
+	   body {
+	       //      background-color: #71B369;
+	       background-image: url("home_hero.png");
+	       background-size: cover;
+	   }
+	   .cover-photo{
+	      width: 100%;
+	      height: auto;
+	      align:center;
+	      margin-left: auto;
+	      margin-right: auto;
+	      display:block;
+	      padding-bottom: 25px;
+	      
+	   }
+	   #maximeTax-before, #maximeTax {
+	       color: green;
+	   }
+	   #savings-parent {
+	       font-size: 2em;
+	       font-weight: bold;
+	   }
+	   #savings-before, #savings{
+	       color: green;
+
+	   }
+	   .cover-col {
+	       //background-color: #484848;
+	       
+	   }
+	   .calculator-row {
+	       margin-top:25px;
+	   }
+	   .panel-heading {
+	       background-color: #96C576 !important;
+	       font-weight: bold;
+	       font-size: 2.5em;
+	   }
+	   #currentTax-label, #maximeTax-label {
+	       font-weight: bold;
+	   }
+	   .panel-body {
+			word-wrap: break-word;
+	   }
+	</style>
+	<title></title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 cover-col"><img class="img-responsive cover-photo" src="BernierCoverPhoto.jpg"></div>
+		</div>
+		<div class="row calculator-row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Income Tax Savings
+					</div>
+					<div class="panel-body">
+						<form id="form" name="form">
+							<div class="form-group">
+								<label for="income">Income: $</label> <input id="income" type="text">
+							</div>
+						</form>
+						<p id="currentTax-parent"><span id="currentTax-label">Current Tax:</span> <span id="currentTax-before"></span><span id="currentTax"></span></p>
+						<p id="maximeTax-parent"><span id="maximeTax-label">Maxime's Proposal:</span> <span id="maximeTax-before"></span><span id="maximeTax"></span></p>
+						<p id="savings-parent"><span id="savings-label">Savings:</span> <span id="savings-before"></span><span id="savings"></span></p><button class="btn btn-default" id="submit" type="submit">Calculate</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Maxime Bernier's Income Tax Proposal
+					</div>
+					<div class="panel-body">
+						<ul>
+							<li>Raise the Basic Personal Exemption to $15,000</li>
+							<li>Eliminate two tax brackets so that income from $15,001 to $100,000 is taxed at 15%</li>
+							<li>Tax income over $100,001 at 25%</li>
+							<li>Eliminate boutique tax credits that serve no public policy purpose.</li>
+						</ul>
+						<p>Learn more at <a href="http://www.maximebernier.com/nr_income_tax_cuts">http://www.maximebernier.com/nr_income_tax_cuts</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
