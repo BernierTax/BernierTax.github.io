@@ -1,112 +1,40 @@
- <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<!DOCTYPE html>
+<html>
+<head>
 
-        function currentTax(totalincome) {
-          var currenttaxarray = [];
-          var tax = 0;
-          var income  = totalincome - 11635;
-          
-          if (income < 0) {
-            return tax;
-          }
-          
-          if(0 < income) {
-            if(income < 45916) {
-               tax += income * 0.15;            
-            }  else {
-               tax += 45916 * 0.15;
-            }
+	<script src="tax.js" type="text/javascript">
+	</script>
+	<script src="https://www.gstatic.com/charts/loader.js" type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	  google.charts.load('current', {
+		'packages': ['corechart']
+	  });
+	  google.charts.setOnLoadCallback(drawChart);
 
-          } 
-          
-          if(45916 < income) {
-            if(income < 91831) {
-              tax += (income - 45916) * 0.205;
-            } else {
-              tax += (91831-45916) * 0.205;
-            }
-            console.log(income + " " + tax + " secondbracket ");  
-          } 
-          if(91831 < income) {
-          // tax = tax + 45916 * 0.15 + 91831 * 0.205;
-            if(income < 142353) {
-              tax = tax +  (income - 91831) * 0.26;
-            } else {
-              tax += (142353 - 91831) * 0.26;
-            }
-            console.log(income + " " + tax);  
-          } 
-          if (142353 < income) {
-            //tax = tax + 45916 * 0.15 + (91831 -  * 0.205 + 142353 * 0.26;
-          if(income<202800) {
-            tax = tax + (income - 142353) * 0.29;
-          } else {
-            tax += (202800 - 142353) * 0.29;
-          }
-            console.log(income + " " + tax);  
-          } 
-          
-          if(income > 202800) {
-           // tax = tax + 45916 * 0.15 + 91831 * 0.205 + 142353 * 0.26 *
-           tax = tax + (income - 202800) * 0.33;
-            console.log(income + " " + tax);  
-          }
-            console.log(income + " " + tax);  
-          return tax;
-          
-        }
-      function drawChart() {
-   /*     var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);*/
-
-        var dataarray = [];
-        dataarray.push(["Income", "Maxime Bernier", "Current", "Savings"]);
-        var tax = 0;
-        for(var i = 0; i < 240000; i++){
-          if(i % 100 == 0) {
-            if(i < 15000) {
-              dataarray.push([i, 0, currentTax(i), currentTax(i) - tax]);
-            } else {
-                if(i < 100000){
-                tax = tax + 15;
-                 // document.write(tax + "<br>")
-                  dataarray.push([i, tax, currentTax(i), currentTax(i) - tax]);
-                } else {
-                  tax = tax + 25;
-                  dataarray.push([i, tax, currentTax(i), currentTax(i) - tax]);
-                }
-              }
-          }
-        }
-        
-
-        var data = google.visualization.arrayToDataTable(dataarray);
-        
-
-
-    ``
-        var options = {
-          title: 'Tax vs Income',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="curve_chart" style="width: 900px; height: 500px"></div>
-  </body>
+	  function drawChart() {
+		var dataarray = [];
+		dataarray.push(['Income', 'Maxime Bernier', 'Current', 'Savings']);
+		for (var i = 0; i < 260000; i++) {
+			if (i % 100 == 0) {
+				dataarray.push([i, maximeTax(i), currentTax(i), currentTax(i) - maximeTax(i)]);
+			}
+		}
+		var data = google.visualization.arrayToDataTable(dataarray);
+		var options = {
+			title: 'Tax Rates vs Income',
+			curveType: 'function',
+			legend: {
+				position: 'bottom'
+			}
+		};
+		var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+		chart.draw(data, options);
+	  }
+      
+	</script>
+</head>
+<body>
+	<div id="curve_chart" style="width: 900px; height: 500px"></div>
+</body>
 </html>
